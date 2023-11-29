@@ -12,7 +12,10 @@ public class Producer implements Runnable{
     public void run() {
 
         for(int i=0; i<4; i++) {
-            buffer.add(String.valueOf(i));
+
+            synchronized (buffer) {
+                buffer.add(String.valueOf(i));
+            }
             System.out.println(Thread.currentThread().getName() + " added a number");
         }
 

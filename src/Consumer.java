@@ -14,14 +14,14 @@ public class Consumer implements Runnable{
 
         while (true) {
 
-            if(buffer.isEmpty()) {
-                continue;
-            }
-            else {
-                System.out.println(Thread.currentThread().getName() + " processing " + buffer.remove(0));
-            }
+            synchronized (buffer) {
 
+                if (buffer.isEmpty()) {
+                    continue;
+                } else {
+                    System.out.println(Thread.currentThread().getName() + " processing " + buffer.remove(0));
+                }
+            }
         }
-
     }
 }
