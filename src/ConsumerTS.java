@@ -11,22 +11,13 @@ public class ConsumerTS implements Runnable{
     @Override
     public void run() {
         while (true) {
-
-            if(taskQueue.isEmpty()) {
-                continue;
+            try {
+              String id = taskQueue.take();
+              Thread.sleep(2000);
+              System.out.println(Thread.currentThread().getName() + " processing the id " + id);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            else {
-
-                try {
-                  String id = taskQueue.take();
-                  Thread.sleep(2000);
-                  System.out.println(Thread.currentThread().getName() + " processing the id " + id);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
-
         }
     }
 }
